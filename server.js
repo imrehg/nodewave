@@ -12,7 +12,7 @@ app.set("views", __dirname + '/views');
 var io = require('socket.io').listen(app);
 
 io.configure(function(){
-    io.set('log level', 3);
+    io.set('log level', 2);
     io.set("transports", ["websocket", "xhr-polling"]);
 });
 
@@ -43,11 +43,11 @@ app.get('/test', function(request, response) {
 });
 
 app.post('/data', function(request, response) {
-    console.log(request.body);
+    // console.log(request.body);
     var wavelength = request.param('wavelength', null)
       , channel = request.param('channel', null);
     outdata = {channel: channel, wavelength: wavelength};
-    console.log(outdata);
+    // console.log(outdata);
     data.emit('update', outdata);
     response.send('OK');
 });
