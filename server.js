@@ -5,6 +5,7 @@ var uuid = require('node-uuid');
 
 var app = express.createServer(express.logger());
 app.use(express.bodyParser());
+app.set("views", __dirname + '/views');
 
 // // create a socket.io backend for sending facebook graph data
 // // to the browser as we receive it
