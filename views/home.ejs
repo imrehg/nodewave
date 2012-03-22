@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- We get the name of the app out of the information fetched -->
+    <title><%= app.name %></title>
+    <link rel="stylesheet" href="stylesheets/screen.css" media="screen">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+
+      // open a socket.io connection to the backend
+      var socket = io.connect('/data');
+
+      socket.on('connect', function() {
+        $('#data').append('<b>connected</b><br>'); 
+
+        // identify this socket with our auth token
+        socket.emit('auth', '<%= socket_id %>');
+
+      // when a status is received from the backend, add it to the page
+      // socket.on('update', function(data) {
+      //   $('#data').append(data+'<br>'); 
+      // });
+
+      socket.on('update', function(data) {
+        console.log(data);
+        $('#data').prepend(data.wavelength+'<br>'); 
+      });
+
+    });
+
+    </script>
+    <!--[if IE]>
+      <script>
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+      </script>
+    <![endif]-->
+  </head>
+  <body>
+    <section id="samples" class="clearfix">
+      <h1>Receive data</h1>
+
+      <div class="list" id="data">
+      </div>
+
+    </section>
+
+  </body>
+</html>
