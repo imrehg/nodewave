@@ -7,6 +7,8 @@ var app = express.createServer(express.logger());
 app.use(express.bodyParser());
 app.set("views", __dirname + '/views');
 
+app.use("/assets", express.static(__dirname + '/assets'));
+
 // // create a socket.io backend for sending facebook graph data
 // // to the browser as we receive it
 var io = require('socket.io').listen(app);
